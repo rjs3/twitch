@@ -5,6 +5,7 @@ import { SearchRoutingModule } from './search-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TwitchService } from '../shared/services/twitch.service';
+import { TopGamesComponent } from '../top-games/top-games.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { TwitchService } from '../shared/services/twitch.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [SearchComponent],
+  declarations: [SearchComponent, TopGamesComponent],
   providers: [TwitchService]
 })
 export class SearchModule { }

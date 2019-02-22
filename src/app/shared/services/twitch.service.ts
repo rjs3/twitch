@@ -18,39 +18,30 @@ export class TwitchService {
 
     }
 
-    /*     search(query:string) {
-            let params: string = [
-                `client_id=${this.TWITCH_API_KEY}`,
-                `q=${query}`,
-                `limit=${this.LIMIT}`
-            ].join('&');
-            let queryUrl: string = `${this.TWITCH_API_URL}?${params}`;
-            return this._http.get(queryUrl);
-        } */
-
-
     //TRAZ UM CANAL ESPECIFICO
 
     /*  test() {
          return this._http.get(`${this.TWITCH_API_URL}/users?login=namelessherotv`, httpOptions);
      } */
 
-    //TOP GAMES
-
-    /*   test() {
-          return this._http.get(`${this.TWITCH_API_URL}/games/top`, httpOptions);
-      } */
-
+    
+     
     //SEARCH CANAIS
     /* 
         test() {
             return this._http.get(`${this.TWITCH_API_URL}/search/channels?query=nameless&limit=20`, httpOptions);
         } */
 
-        
+    //RealtimeSearch
     searchChannel(channel, limit) {
         return this._http.get(`${this.TWITCH_API_URL}/search/channels?query=${channel}&limit=${limit}`, httpOptions);
+    }
+
+    //Return Top Games
+    topGames() {
+        return this._http.get(`${this.TWITCH_API_URL}/games/top?limit=12`, httpOptions);
     } 
+
 
 
 }

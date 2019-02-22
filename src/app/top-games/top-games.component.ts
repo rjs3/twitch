@@ -8,9 +8,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./top-games.component.scss']
 })
 export class TopGamesComponent implements OnInit {
-
+  
   resultTopGames = [];
   subscriptions: Subscription[] = [];
+  loading:boolean = true;
+
   constructor(private _twitchService: TwitchService) { }
 
   ngOnInit() {
@@ -18,10 +20,19 @@ export class TopGamesComponent implements OnInit {
       if(data) {
         this.resultTopGames = data.top;
         console.log(this.resultTopGames);
+        this.clearLoading();
       } else {
         this.resultTopGames = [];
+        this.clearLoading();
       }
     }));
+  }
+
+  clearLoading() {
+    let timeout = setTimeout(() => {
+      this.loading = false;
+      clearTimeout(timeout);
+    }, 1000);
   }
 
 }

@@ -9,8 +9,7 @@ const httpOptions = {
 
 @Injectable()
 export class TwitchService {
-    TWITCH_API_KEY: string = 'teste';
-    //Api Twitch v6
+    //Api Twitch v5
     TWITCH_API_URL: string = 'https://api.twitch.tv/kraken/';
     LIMIT: string = '10';
 
@@ -19,29 +18,30 @@ export class TwitchService {
     }
 
     //TRAZ UM CANAL ESPECIFICO
-
     /*  test() {
          return this._http.get(`${this.TWITCH_API_URL}/users?login=namelessherotv`, httpOptions);
      } */
 
-    
-     
-    //SEARCH CANAIS
-    /* 
-        test() {
-            return this._http.get(`${this.TWITCH_API_URL}/search/channels?query=nameless&limit=20`, httpOptions);
-        } */
 
-    //RealtimeSearch
+    //RealtimeSearch - by Channel
     searchChannel(channel, limit) {
         return this._http.get(`${this.TWITCH_API_URL}/search/channels?query=${channel}&limit=${limit}`, httpOptions);
+    }
+
+    //RealtimeSearch - by Streams
+    searchStream(stream, limit) {
+        return this._http.get(`${this.TWITCH_API_URL}/search/streams?query=${stream}&limit=${limit}`, httpOptions);
+    }
+
+    //RealtimeSearch - by Games
+    searchGame(game, limit) {
+        return this._http.get(`${this.TWITCH_API_URL}/search/games?query=${game}&type=suggest`, httpOptions);
     }
 
     //Return Top Games
     topGames() {
         return this._http.get(`${this.TWITCH_API_URL}/games/top?limit=12`, httpOptions);
-    } 
-
+    }
 
 
 }

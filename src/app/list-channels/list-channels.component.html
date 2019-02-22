@@ -1,0 +1,24 @@
+<img src="../../assets/imgs/channels.png" class="img-title" />
+<div class="line-title"></div>
+
+<div class="row  content-cards">
+
+  <div class="card-width" *ngFor="let item of resultChannels">
+    <div class="card-game animated zoomIn">
+      <div class="card-game-hover">
+        <img src="../../assets/imgs/details.svg" class="info-button" />
+        <p class="detail-title">Details</p>
+      </div>
+     <img [src]="item.logo" />
+      <p class="name">
+        {{ item.display_name }}
+      </p>
+      <p class="views">
+          <i class="far fa-eye"></i>  {{ item.views | number }} Views
+      </p>
+    </div>
+  </div>
+
+
+</div>
+

@@ -4,16 +4,25 @@
 
 <div class="row  content-cards">
 
-  <div class="card-width" *ngFor="let item of resultTopGames">
-    <div class="card-game">
-      <div class="card-game-hover">
-        <img src="../../assets/imgs/play-button.svg" class="play-button"/>
-      </div>
-      <img [src]="item.game.box.large" />
-      <p class="followers">
-          <i class="far fa-eye"></i> {{ item.viewers | number }} Viewers
-      </p>
+  <ng-container *ngIf="loading">
+    <div class="loading">
+      <app-preloading></app-preloading>
     </div>
-  </div>
+  </ng-container>
+
+  <ng-container *ngIf="!loading">
+    <div class="card-width" *ngFor="let item of resultTopGames">
+      <div class="card-game animated zoomIn">
+        <div class="card-game-hover">
+          <img src="../../assets/imgs/play-button.svg" class="play-button" />
+        </div>
+        <img [src]="item.game.box.large" />
+        <p class="followers">
+          <i class="far fa-eye"></i> {{ item.viewers | number }} Viewers
+        </p>
+      </div>
+    </div>
+  </ng-container>
+
 
 </div>

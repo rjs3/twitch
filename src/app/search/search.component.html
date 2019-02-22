@@ -1,44 +1,59 @@
-<div class="container-fluid">
-  <div class="wave-banner">
-    <img src="../../assets/imgs/wave.svg" class="wave-bg" />
-    <img src="../../assets/imgs/logo.png" class="logo" />
-    <img src="../../assets/imgs/logo-symbol.png" class="logo-symbol" />
-  </div>
-  <div class="content">
 
-    <div class="search-form">
-      <input type="search" id="search-bar" placeholder="Search" class="search-input" [(ngModel)]="search" name="search">
-      <button type="submit" class="search-button">
-        <img src="../../assets/imgs/search.svg" class="search-icon" />
-      </button>
 
-      <div class="dropdown dropdown-filter">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <img src="../../assets/imgs/filter.svg" />
-          Streams
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item">Channels</a>
-          <a class="dropdown-item">Games</a>
-          <a class="dropdown-item">Users</a>
-          <a class="dropdown-item">Streams</a>
+    <div class="container-fluid">
+        <div class="wave-banner">
+          <img src="../../assets/imgs/wave.svg" class="wave-bg" />
+          <img src="../../assets/imgs/logo.png" class="logo" />
+          <img src="../../assets/imgs/logo-symbol.png" class="logo-symbol" />
+        </div>
+        <div class="content">
+      
+          <div class="search-form">
+            <input type="search" id="search-bar" placeholder="Search" class="search-input" [(ngModel)]="search" name="search">
+            <button type="submit" class="search-button">
+              <img src="../../assets/imgs/search.svg" class="search-icon" />
+            </button>
+      
+            <div class="dropdown dropdown-filter">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img src="../../assets/imgs/filter.svg" />
+                {{ currentFilter }}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="currentFilter = 'Channels'">Channels</a>
+                <a class="dropdown-item" (click)="currentFilter = 'Games'">Games</a>
+                <a class="dropdown-item" (click)="currentFilter = 'Streams'">Streams</a>
+              </div>
+            </div>
+      
+          </div>
+      
+          <div class="container-fluid content-result">
+            <div class="row">
+              <div class="col-lg-9 teste">
+
+                  <app-top-games *ngIf="!loading && result.length === 0"></app-top-games>
+
+                  <ng-container *ngIf="loading">
+                      <div class="loading">
+                          <app-preloading></app-preloading>
+                        </div>
+                  </ng-container>
+
+                  <app-list-channels *ngIf="currentFilter === 'Channels' && !loading && result.length > 0" [resultChannels]="result"></app-list-channels>
+                  <app-list-streams *ngIf="currentFilter === 'Streams' && !loading && result.length > 0" [resultStreams]="result"></app-list-streams>
+                  <app-list-games *ngIf="currentFilter === 'Games' && !loading && result.length > 0" [resultGames]="result"></app-list-games>
+
+              </div>
+              <div class="col-lg-3 teste">
+                <div class="sidenav">
+                  <app-sidenav></app-sidenav>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+      
         </div>
       </div>
-
-    </div>
-
-    <div class="container-fluid content-result">
-      <div class="row">
-        <div class="col-lg-9 teste">
-            <app-top-games></app-top-games>
-        </div>
-        <div class="col-lg-3 teste">
-          sidenav
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-</div>

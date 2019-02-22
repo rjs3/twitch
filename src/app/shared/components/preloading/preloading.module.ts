@@ -6,6 +6,7 @@ import { PreloadingComponent } from './preloading.component';
   imports: [
     CommonModule
   ],
-  declarations: [PreloadingComponent]
+  declarations: [PreloadingComponent],
+  exports: [PreloadingComponent]
 })
 export class PreloadingModule { }

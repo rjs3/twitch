@@ -1,0 +1,19 @@
+<img src="../../assets/imgs/games.png" class="img-title" />
+<div class="line-title"></div>
+
+<div class="row  content-cards">
+
+  <div class="card-width" *ngFor="let item of resultGames">
+    <div class="card-game animated zoomIn">
+      <div class="card-game-hover">
+      </div>
+     <img [src]="item.box.medium" />
+      <p class="game">
+        {{ item.name }}
+      </p>
+    </div>
+  </div>
+
+
+</div>
+

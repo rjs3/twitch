@@ -1,0 +1,9 @@
+.top {
+    border: 1px solid red;
+    height: 330px;
+}
+
+.bottom {
+    border: 1px solid red;
+    height: calc(100% - 330px);
+}

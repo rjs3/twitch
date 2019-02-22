@@ -16,47 +16,64 @@ export class SearchComponent implements OnInit, AfterViewInit {
   subscriptions: Subscription[] = [];
   search;
   loading = false;
+  currentFilter = 'Streams';
 
   constructor(private _twitchService: TwitchService) { }
-  
+
   ngOnInit() {
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.realTimeSearch();
   }
 
   public realTimeSearch() {
-   const el = document.getElementById('search-bar');
-     fromEvent(el, 'keyup')
-    .pipe(filter((data:any) => {
-      this.loading = true;
-      if(data.target.value.trim() === '') {
-        setTimeout(() => {
-          this.loading = false;
-        }, 2000);
+    const el = document.getElementById('search-bar');
+    fromEvent(el, 'keyup')
+      .pipe(filter((data: any) => {
+        this.loading = true;
         this.result = [];
-        return false;
-      }
-      return true;
-    }))
-    .pipe(debounceTime(600))
-    .pipe(distinctUntilChanged())
-    .pipe(mergeMap(() => {
-      return this._twitchService.searchChannel(this.search, this.limit)
-    }))
-    .subscribe((data:any)=> {
-      if (data && data.channels && data.channels.length > 0) {
-        data.channels.forEach(element => {
-          this.result.push(element.display_name);
+        if (data.target.value.trim() === '') {
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000);
+          this.result = []; 
+          return false;
+        }
+        return true;
+      }))
+      .pipe(debounceTime(600))
+      .pipe(distinctUntilChanged())
+      .pipe(mergeMap(() => {
+        switch (this.currentFilter) {
+          case 'Channels':
+            return this._twitchService.searchChannel(this.search, this.limit);
+          case 'Streams':
+            return this._twitchService.searchStream(this.search, this.limit);
+          case 'Games':
+            return this._twitchService.searchGame(this.search, this.limit);
+        }
+      }))
+      .subscribe((data: any) => {
+        if (data) {
+          switch (this.currentFilter) {
+            case 'Channels':
+              this.result = data.channels;
+              break;
+            case 'Streams':
+              this.result = data.streams;
+              break;
+            case 'Games':
+              this.result = data.games;
+              break;
+          }
           this.loading = false;
-        });
-      }
-    }, error => {
-      this.realTimeSearch();
-      console.log(error);
-      this.loading = false;
-    });
+        }
+      }, error => {
+        this.realTimeSearch();
+        console.log(error);
+        this.loading = false;
+      });
   }
 
   ngOnDestroy() {

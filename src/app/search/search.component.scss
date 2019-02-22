@@ -33,7 +33,7 @@
     position: relative;
     top: -275px;
     left: 40%;
-    width: 45%;
+    width: 42%;
     height: 50px;
     border-radius: 15px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
@@ -41,6 +41,7 @@
     transform: translate(-50%, -50%);
     background: #FFF;
     transition: all 0.3s ease;
+    z-index: 9999;
     &.focus {
       box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
     }
@@ -211,5 +212,26 @@
 
 .teste {
   /* border: 1px solid red;   */
+}
+
+.sidenav {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  @media (max-width: 1366px) {
+    display: none;
+  }
+}
+
+.loading {
+  height: calc(100vh - 180px);
+  width: 100%;
+  text-align: center;
+  padding-left: calc(50% - 100px);
+  padding-top: 270px;
+  @media (max-width: 1024px) {
+      padding-top: 145px;
+  }
 }
 

@@ -1,0 +1,27 @@
+<img src="../../assets/imgs/streams.png" class="img-title" />
+<div class="line-title"></div>
+
+<div class="row  content-cards">
+
+  <div class="card-width" *ngFor="let item of resultStreams">
+    <div class="card-game animated zoomIn">
+      <div class="card-game-hover">
+        <img src="../../assets/imgs/details.svg" class="info-button" />
+        <p class="detail-title">Details</p>
+      </div>
+     <img [src]="item.channel.logo" />
+      <p class="name">
+        {{ item.channel.display_name }}
+      </p>
+      <p class="game">
+        {{ item.channel.game }}
+      </p>
+      <p class="views">
+          <i class="far fa-eye"></i>  {{ item.viewers | number }} Viewers
+      </p>
+    </div>
+  </div>
+
+
+</div>
+

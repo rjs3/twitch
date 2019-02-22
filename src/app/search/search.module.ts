@@ -6,6 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TwitchService } from '../shared/services/twitch.service';
 import { TopGamesComponent } from '../top-games/top-games.component';
+import { PreloadingModule } from '../shared/components/preloading/preloading.module';
+import { SidenavComponent } from '../sidenav/sidenav.component';
+import { ListChannelsComponent } from '../list-channels/list-channels.component';
+import { ListStreamsComponent } from '../list-streams/list-streams.component';
+import { ListGamesComponent } from '../list-games/list-games.component';
 
 @NgModule({
   imports: [
@@ -13,9 +18,17 @@ import { TopGamesComponent } from '../top-games/top-games.component';
     SearchRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PreloadingModule
   ],
-  declarations: [SearchComponent, TopGamesComponent],
+  declarations: [
+    SearchComponent,
+    TopGamesComponent,
+    SidenavComponent,
+    ListChannelsComponent,
+    ListStreamsComponent,
+    ListGamesComponent
+  ],
   providers: [TwitchService]
 })
 export class SearchModule { }

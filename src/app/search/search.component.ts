@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TwitchService } from '../shared/services/twitch.service';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, mergeMap, filter, distinctUntilChanged } from 'rxjs/operators';
+import { DataSharedService } from '../shared/services/data-shared.service';
 
 @Component({
   selector: 'app-search',
@@ -74,6 +75,17 @@ export class SearchComponent implements OnInit, AfterViewInit {
         console.log(error);
         this.loading = false;
       });
+  }
+
+  removeSearch() {
+    this.result = [];
+    this.search = '';
+  }
+
+  setFilter(filter) {
+    this.currentFilter = filter;
+    this.result = [];
+    this.search = '';
   }
 
   ngOnDestroy() {

@@ -11,7 +11,8 @@
           <div class="search-form">
             <input type="search" id="search-bar" placeholder="Search" class="search-input" [(ngModel)]="search" name="search">
             <button type="submit" class="search-button">
-              <img src="../../assets/imgs/search.svg" class="search-icon" />
+              <img src="../../assets/imgs/search.svg" class="search-icon" *ngIf="!search" />
+              <img src="../../assets/imgs/clear.svg" class="clear-icon" *ngIf="search" (click)="removeSearch()" />
             </button>
       
             <div class="dropdown dropdown-filter">
@@ -21,9 +22,9 @@
                 {{ currentFilter }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" (click)="currentFilter = 'Channels'">Channels</a>
-                <a class="dropdown-item" (click)="currentFilter = 'Games'">Games</a>
-                <a class="dropdown-item" (click)="currentFilter = 'Streams'">Streams</a>
+                <a class="dropdown-item" (click)="setFilter('Channels')">Channels</a>
+                <a class="dropdown-item" (click)="setFilter('Games')">Games</a>
+                <a class="dropdown-item" (click)="setFilter('Streams')">Streams</a>
               </div>
             </div>
       
@@ -31,7 +32,7 @@
       
           <div class="container-fluid content-result">
             <div class="row">
-              <div class="col-lg-9 teste">
+              <div class="col-lg-12">
 
                   <app-top-games *ngIf="!loading && result.length === 0"></app-top-games>
 
@@ -45,11 +46,6 @@
                   <app-list-streams *ngIf="currentFilter === 'Streams' && !loading && result.length > 0" [resultStreams]="result"></app-list-streams>
                   <app-list-games *ngIf="currentFilter === 'Games' && !loading && result.length > 0" [resultGames]="result"></app-list-games>
 
-              </div>
-              <div class="col-lg-3 teste">
-                <div class="sidenav">
-                  <app-sidenav></app-sidenav>
-                </div>
               </div>
             </div>
           </div>

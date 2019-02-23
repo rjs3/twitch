@@ -7,10 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TwitchService } from '../shared/services/twitch.service';
 import { TopGamesComponent } from '../top-games/top-games.component';
 import { PreloadingModule } from '../shared/components/preloading/preloading.module';
-import { SidenavComponent } from '../sidenav/sidenav.component';
 import { ListChannelsComponent } from '../list-channels/list-channels.component';
 import { ListStreamsComponent } from '../list-streams/list-streams.component';
 import { ListGamesComponent } from '../list-games/list-games.component';
+import { DataSharedService } from '../shared/services/data-shared.service';
 
 @NgModule({
   imports: [
@@ -24,11 +24,10 @@ import { ListGamesComponent } from '../list-games/list-games.component';
   declarations: [
     SearchComponent,
     TopGamesComponent,
-    SidenavComponent,
     ListChannelsComponent,
     ListStreamsComponent,
     ListGamesComponent
   ],
-  providers: [TwitchService]
+  providers: [TwitchService, DataSharedService]
 })
 export class SearchModule { }

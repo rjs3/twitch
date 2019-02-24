@@ -1,3 +1,4 @@
+<notifier-container></notifier-container>
 <div class="container-pattern">
   <div class="top">
 
@@ -6,8 +7,35 @@
 
     <div class="container-fluid content-top">
       <div class="row height-100">
-        <div class="col-md-6 content-info">
-          <h1>Top Games</h1>
+        <div class="col-md-3 content-info">
+          <h1>{{ currentTitle }}</h1>
+        </div>
+        <div class="col-md-3">
+          <div class="number-results" [hidden]="currentTitle !== 'Top Games'">
+            <div class="dropdown dropdown-number-result">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Serach by <b>{{ numberResults }}</b> Results
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="setNumberResults(10)">10 Results</a>
+                <a class="dropdown-item" (click)="setNumberResults(20)">20 Results</a>
+                <a class="dropdown-item" (click)="setNumberResults(30)">30 Results</a>
+                <a class="dropdown-item" (click)="setNumberResults(40)">40 Results</a>
+                <a class="dropdown-item" (click)="setNumberResults(50)">50 Results</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="number-results" [hidden]="currentTitle === 'Top Games' || currentTitle === 'Games'">
+            <div class="dropdown dropdown-number-result">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" disabled>
+                Filtering <b>{{ numberResults }}</b> Results
+              </button>
+            </div>
+          </div>
+
         </div>
         <div class="col-md-6 content-search">
 
@@ -41,13 +69,15 @@
   </div>
   <div class="bottom">
 
+
+    <div *ngIf="loading" class="loading-content d-flex justify-content-center">
+      <app-preloading></app-preloading>
+    </div>
+
     <app-top-games *ngIf="!loading && result.length === 0"></app-top-games>
     <app-list-streams *ngIf="currentFilter === 'Streams' && !loading && result.length > 0" [resultStreams]="result"></app-list-streams>
     <app-list-channels *ngIf="currentFilter === 'Channels' && !loading && result.length > 0" [resultChannels]="result"></app-list-channels>
     <app-list-games *ngIf="currentFilter === 'Games' && !loading && result.length > 0" [resultGames]="result"></app-list-games>
-
-
-
 
   </div>
 </div>

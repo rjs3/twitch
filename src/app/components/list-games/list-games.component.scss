@@ -1,6 +1,7 @@
 .content-cards {
-    margin-left: 5px;
-
+    @media (max-width: 1024px) {
+        padding-top: 160px;
+    }
     .card-game {
         cursor: pointer;
         transition: all 0.4s;

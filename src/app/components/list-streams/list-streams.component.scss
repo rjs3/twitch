@@ -1,5 +1,8 @@
 .content-cards {
     padding-top: 50px;
+    @media (max-width: 1024px) {
+        padding-top: 160px;
+    }
     .card-game {
         cursor: pointer;
         transition: all 0.4s;
@@ -108,7 +111,7 @@
                 margin-left: 8px;
                 padding-top: 30px;
                 font-family: twitchFont;
-                color: #6441A5;
+                color: #FFF;
                 font-size: 27px;
             }
             .online {
@@ -126,12 +129,11 @@
                 }
             }
             .card-info {
-                border: 3px solid darkslateblue;
+                border: 3px solid #fefefe;
                 padding: 10px 20px;
                 margin: 15px 0px;
                 border-radius: 10px;
                 border-top-right-radius: 60px;
-                opacity: 0.6;
                 &:hover {
                     opacity: 1;
                 }
@@ -139,24 +141,27 @@
                     margin: 0;
                     font-size: 14px;
                     padding-top: 8px;
-                    color: #888;
+                    color: #cecece;
                 }
                 h3 {
                     font-size: 18px;
                     margin-top: 6px;
                     font-weight: 600;
-                    color: #6441A5;
+                    color: #FFF;
+                    span {
+                        font-size: 13px;
+                        opacity: 0.6;
+                    }
                 }
             }
         }
         .content-iframe {
             overflow: hidden;
-            position: absolute;
-            width: 96%;
-            height: calc(100vh - 150px);
-            margin-top: -60px;
+            height: 620px;
+            margin-left: 70px;
             border-radius: 15px;
             overflow: hidden;
+            margin-bottom: 30px;
         }
     }
 }
@@ -166,12 +171,15 @@
 	width:60px;
     height:60px;
     bottom: 40px;
-    left: 20px;
+    left: 45px;
 	background-color: #A779E9;
 	color:#FFF;
 	border-radius:50px;
 	text-align:center;
     cursor: pointer;
+    &:hover {
+        opacity: 0.7;
+    }
 }
 
 .my-float{

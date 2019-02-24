@@ -1,25 +1,9 @@
 
-.img-title {
-    width: 235px;
-    margin-left: 20px;
-    padding-top: 15px;
-    opacity: 0.7;
-}
-
-.line-title {
-    width: 120px;
-    height: 5px;
-    margin-bottom: 20px;
-    margin-top: 18px;
-    margin-left: 21px;
-    border-radius: 25px;
-    background: #11998e;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
 .content-cards {
     padding-top: 50px;
+    @media (max-width: 1024px) {
+        padding-top: 160px;
+    }
     .card-game {
         cursor: pointer;
         transition: all 0.7s;

@@ -1,7 +1,7 @@
 <div class="row  content-cards">
 
   <div class="card-width" *ngFor="let item of resultGames">
-    <div class="card-game animated zoomIn">
+    <div class="card-game animated zoomIn" (click)="redirectToGame(item.name)">
       <div class="card-game-hover">
       </div>
       <img [src]="item.box.medium" />

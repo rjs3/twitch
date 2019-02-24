@@ -8,7 +8,7 @@
 
   <ng-container *ngIf="!loading">
     <div class="card-width" *ngFor="let item of resultTopGames">
-      <div class="card-game animated zoomIn">
+      <div class="card-game animated zoomIn" (click)="redirectToGame(item.game.name)">
         <div class="card-game-hover">
           <img src="../../assets/imgs/play-button.svg" class="play-button" />
         </div>

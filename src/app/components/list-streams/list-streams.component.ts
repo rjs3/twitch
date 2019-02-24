@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DataSharedService } from 'src/app/shared/services/data-shared.service';
+import { TwitchService } from 'src/app/shared/services/twitch.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -7,19 +10,22 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './list-streams.component.html',
   styleUrls: ['./list-streams.component.scss']
 })
-export class ListStreamsComponent implements OnInit {
+export class ListStreamsComponent implements OnInit, OnDestroy {
 
   url_video: string;
   currentPage = 'list';
   stream: any;
   iframeURL: string;
+  subscriptions: Subscription[] = [];
 
   @Input() resultStreams: any;
   constructor(
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private _dataSharedService: DataSharedService
   ) { }
 
   ngOnInit() {
+    this._dataSharedService.setDetail('Streams');
   }
 
   openStream(stream) {
@@ -28,6 +34,14 @@ export class ListStreamsComponent implements OnInit {
     this.iframeURL = `https://player.twitch.tv/?channel=${this.stream.channel.display_name}`;
     console.log(this.iframeURL);
     this.currentPage = 'stream';
+
+  }
+
+  ngOnDestroy() {
+    this._dataSharedService.setDetail('Top Games');
+    this.subscriptions.forEach(s => {
+      s.unsubscribe();
+    });
   }
 
 }

@@ -10,6 +10,50 @@ import { PreloadingModule } from '../shared/components/preloading/preloading.mod
 import { ListStreamsComponent } from '../components/list-streams/list-streams.component';
 import { ListGamesComponent } from '../components/list-games/list-games.component';
 import { ListChannelsComponent } from '../components/list-channels/list-channels.component';
+import { DataSharedService } from '../shared/services/data-shared.service';
+import { CookieService } from 'ngx-cookie-service';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+		horizontal: {
+			position: 'left',
+			distance: 12
+		},
+		vertical: {
+			position: 'bottom',
+			distance: 12,
+			gap: 10
+		}
+	},
+  theme: 'material',
+  behaviour: {
+    autoHide: 2500,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
 
 @NgModule({
   imports: [
@@ -18,7 +62,8 @@ import { ListChannelsComponent } from '../components/list-channels/list-channels
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    PreloadingModule
+    PreloadingModule,
+    NotifierModule.withConfig(customNotifierOptions)
   ],
   declarations: [
     MainComponent,
@@ -27,6 +72,10 @@ import { ListChannelsComponent } from '../components/list-channels/list-channels
     ListGamesComponent,
     ListChannelsComponent
   ],
-  providers: [TwitchService]
+  providers: [
+    TwitchService,
+    DataSharedService,
+    CookieService
+  ]
 })
 export class MainModule { }

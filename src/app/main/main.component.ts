@@ -2,6 +2,9 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, mergeMap, filter, distinctUntilChanged } from 'rxjs/operators';
 import { TwitchService } from '../shared/services/twitch.service';
+import { DataSharedService } from '../shared/services/data-shared.service';
+import { CookieService } from 'ngx-cookie-service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-main',
@@ -10,16 +13,42 @@ import { TwitchService } from '../shared/services/twitch.service';
 })
 export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  limit = 10;
+  limit: any = '10';
   result = [];
   subscriptions: Subscription[] = [];
   search;
   loading = false;
   currentFilter = 'Streams';
-  
-  constructor(private _twitchService: TwitchService) { }
+  currentTitle = 'Top Games';
+  numberResults = '10';
+  hasCookie: boolean;
+  private readonly notifier: NotifierService;
+
+  constructor(
+    private _twitchService: TwitchService,
+    private _dataSharedService: DataSharedService,
+    private _cookieService: CookieService,
+    private  _notifierService: NotifierService
+  ) {
+    this.notifier = _notifierService;
+  }
 
   ngOnInit() {
+    this.hasCookie = !!this._cookieService.get('numberResults');
+    console.log(this.hasCookie);
+
+    if (!this.hasCookie) {
+      this.numberResults = '10';
+    } else {
+      this.numberResults = this._cookieService.get('numberResults');
+      this.limit = this.numberResults;
+    }
+
+    this.subscriptions.push(this._dataSharedService.currentDetail.subscribe((data: any) => {
+      if (data) {
+        this.currentTitle = data;
+      }
+    }));
   }
 
   ngAfterViewInit() {
@@ -36,7 +65,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
           setTimeout(() => {
             this.loading = false;
           }, 2000);
-          this.result = []; 
+          this.result = [];
           return false;
         }
         return true;
@@ -67,11 +96,13 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
               break;
           }
           this.loading = false;
-        }
+        } 
       }, error => {
         this.realTimeSearch();
-        console.log(error);
         this.loading = false;
+        this.notifier.notify( 'error', 'Something happened or No results found!' );
+
+
       });
   }
 
@@ -84,6 +115,13 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.currentFilter = filter;
     this.result = [];
     this.search = '';
+  }
+
+  setNumberResults(number) {
+    this.numberResults = number;
+    this.limit = number;
+    this._dataSharedService.setCountResult(number);
+    this._cookieService.set('numberResults', number);
   }
 
   ngOnDestroy() {

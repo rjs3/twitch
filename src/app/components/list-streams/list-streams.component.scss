@@ -162,6 +162,9 @@
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 30px;
+            @media (max-width: 1024px) {
+                margin-left: 0;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TwitchService } from '../shared/services/twitch.service';
 import { Subscription } from 'rxjs';
+import { TwitchService } from 'src/app/shared/services/twitch.service';
 
 @Component({
   selector: 'app-top-games',

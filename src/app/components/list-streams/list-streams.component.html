@@ -1,0 +1,66 @@
+<div class="row  content-cards">
+
+  <ng-container *ngIf="currentPage === 'list'">
+    <div class="card-width" *ngFor="let item of resultStreams">
+      <div class="card-game animated zoomIn" (click)="openStream(item)">
+        <div class="card-game-hover">
+          <img src="../../../assets/imgs/play-button.svg" class="info-button" />
+        </div>
+        <img [src]="item.channel.logo" />
+        <p class="name">
+          {{ item.channel.display_name }}
+        </p>
+        <p class="game">
+          {{ item.channel.game }}
+        </p>
+        <p class="views">
+          <i class="far fa-eye"></i> {{ item.viewers | number }} Viewers
+        </p>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="currentPage === 'stream'">
+    <div class="container-fluid detail">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="card-detail">
+            <img [src]="stream.channel.logo" />
+            <h1 class="title-twitch-detail" *ngIf="currentPage === 'stream'">{{ stream.channel.display_name }}</h1>
+            <div class="online">
+              <div></div> Online
+            </div>
+
+            <div class="card-info">
+              <p>Watching Now</p>
+              <h3>500.000</h3>
+            </div>
+
+            <div class="card-info">
+              <p>Game</p>
+              <h3>God of War</h3>
+            </div>
+
+            <a class="float" (click)="currentPage = 'list'">
+                <i class="fas fa-arrow-left my-float"></i>
+             </a>
+
+            
+          </div>
+        </div>
+        <div class="col-lg-10">
+          <div class="content-iframe">
+            <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl(iframeURL)' height="100%" width="100%" frameborder="0"
+              allowfullscreen="true">
+            </iframe>
+          </div>
+
+        </div>
+      </div>
+    </div>
+   
+  </ng-container>
+
+
+
+</div>

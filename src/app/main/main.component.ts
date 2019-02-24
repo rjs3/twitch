@@ -1,16 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { TwitchService } from '../shared/services/twitch.service';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, mergeMap, filter, distinctUntilChanged } from 'rxjs/operators';
-import { DataSharedService } from '../shared/services/data-shared.service';
+import { TwitchService } from '../shared/services/twitch.service';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-
-export class SearchComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   limit = 10;
   result = [];
@@ -18,7 +16,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   search;
   loading = false;
   currentFilter = 'Streams';
-
+  
   constructor(private _twitchService: TwitchService) { }
 
   ngOnInit() {

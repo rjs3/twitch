@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    loadChildren: './search/search.module#SearchModule',
+    loadChildren: './main/main.module#MainModule',
     data: { preload: true, delay: true }
   },
   { path: '**', redirectTo: 'not-found' }
